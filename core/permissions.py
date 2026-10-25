@@ -16,7 +16,13 @@ class Action(Enum):
     WRITE_LOCAL_FILE = "write_local_file"
     RUN_COMMAND = "run_command"
     NETWORK_REQUEST = "network_request"
+    
 
+class ApprovalLifetime(Enum):
+    ONE_TIME = "one_time"
+    SESSION = " session"
+    PERSISTENT ="persistent"
+   
 
 @dataclass(frozen=True)
 class PermissionDecision:
@@ -25,6 +31,11 @@ class PermissionDecision:
     allowed: bool
     reason: str
 
+@dataclass(frozen=True)
+class Approval:
+    action:Action
+    resource: str 
+    lifetime: ApprovalLifetime
 
 def check_permission(action: Action, *, user_approved: bool = False) -> PermissionDecision:
     """Return whether an action may proceed; never perform the action here.
@@ -42,8 +53,37 @@ def check_permission(action: Action, *, user_approved: bool = False) -> Permissi
 
     return PermissionDecision(False, "Action requires explicit user approval")
 
-
+def matches_approval(
+        approval: Approval,
+        action: Action,
+        resource: str
+)->PermissionDecision:
+    if action!=approval.action:
+        
+        return PermissionDecision(
+            allowed=False,
+            reason="This action is not permitted Sir!\n "
+            "Please ask for an appropriate permission.\n "
+            "Thank You\n "
+            "Your unliving servant\n "
+            "Zombie Master"
+        )
+    if approval.resource!= resource:
+        return PermissionDecision(
+            allowed=False,
+            reason= "Sorry Sir ! I cannot find the requested resource.\n "
+            "My mind is not that sharp please excuse my shortcomings.\n"
+            "I will always try my best to serve you"
+        )
+    return PermissionDecision(
+        allowed=True,
+        reason=" good news Sir this action has been approved\n"
+        " I shall comply with your request"
+    )
+        
 # TODO (learner exercise, no need to solve immediately):
 # Propose a design for one-time versus session-long approvals.
 # What should happen when the assistant requests a different action?
 # Keep approval state OUT of model-generated text and prompts.
+
+
