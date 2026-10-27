@@ -1,0 +1,54 @@
+## Proposed Architecture and Autonomy
+
+Zombie Master is an experimental, local-first personal AI assistant being developed in Python. Its long-term goal is to operate independently of any particular AI provider, with a modular architecture supporting Windows and Linux.
+
+The project is intended to support supervised autonomy rather than unrestricted self-modification.
+
+### Planned Capabilities
+
+- **CLI-first operation:** Launch and manage the assistant through a command-line interface, with an optional graphical interface.
+- **Independent background operation:** Continue operating without requiring the graphical interface to remain open.
+- **Replaceable AI models:** Support different model backends without rebuilding the application's core systems.
+- **Supervised research:** Perform authorized research, monitor technical developments, and maintain a reviewable local knowledge base.
+- **Controlled updates:** Identify potential software and knowledge updates, while requiring appropriate validation and approval before applying sensitive changes.
+- **Resource management:** Monitor independent operating-system processes, memory consumption, and workload concurrency.
+- **Screen awareness:** Provide optional, configurable access to active-window or browser context to assist with reading and understanding information.
+- **Audio capabilities:** Support speech interaction, audio analysis, and eventually music-production assistance.
+
+### Internal Component Architecture
+
+Zombie Master uses an anatomical naming convention for its planned internal systems:
+
+| Component | Intended Responsibility |
+|---|---|
+| Brain | Independent operating-system process responsible for managing or executing work |
+| Bone | Managed block of data |
+| Finger | Output-generation task |
+| Eye | Visual and screen-context input |
+| Ear | Audio input, listening, and analysis |
+| Mouth | Single speech-output controller responsible for synthesis, playback, mute, and volume |
+
+The architecture is designed around one **Primary Brain**, which supervises the application and any additional processes.
+
+There will be only one logical **Mouth**, preventing overlapping speech output by coordinating requests from other components.
+
+Optional components should be independently activated or disabled to reduce unnecessary resource consumption.
+
+### Autonomy and Safety
+
+Zombie Master's proposed autonomy follows several principles:
+
+1. Sensitive actions require authorization through a centralized permission system.
+2. Independent processes should be monitored and subject to configurable resource limits.
+3. Failed secondary processes should be isolated, logged, and reported without automatic restart.
+4. Research findings and proposed updates should be reviewable before being incorporated into trusted systems.
+5. Screen and audio access should be configurable, with clear controls for disabling those capabilities.
+6. The application should remain operational without a graphical interface, microphone, screen reader, or active AI model where practical.
+
+### Current Development Status
+
+The project is in its early foundational development stage.
+
+Current work includes a prototype permission system, approval matching, JSONL action-history logging, and automated unit tests.
+
+The autonomous research system, process supervision, anatomical component architecture, graphical interface, screen awareness, and audio-processing capabilities described above are **planned features and are not yet implemented**.
