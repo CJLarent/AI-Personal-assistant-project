@@ -27,12 +27,10 @@ record= ActionRecord(
     )
 
 # Display the object
-print(approval)
-print(network_approval)
+
 
 action_matches = approval.action == Action.READ_LOCAL_FILE
 resource_matches = approval.resource == "passwords.txt"
 
-print(action_matches and resource_matches)
 print(record)
 log_action(record)
